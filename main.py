@@ -5,8 +5,8 @@ import screeninfo
 screen_info = screeninfo.get_monitors()[0]
 
 # Retrieve the screen dimensions
-sw = round(screen_info.width * 0.4)
-sh = round(screen_info.height * 0.6)
+sw = round(screen_info.width * 0.3)
+sh = round(screen_info.height * 0.5)
 
 
 # SI; meter, kg, liter, kelvin/celcius
@@ -86,16 +86,16 @@ def display_text():
    label.configure(text=string)
 
 #Initialize a Label to display the User Input in the desired output
-label= tk.Label(canvas, text="", font=("Courier 22 bold"))
-label.place(x=sw*0.1, y=sh*0.1)
+label= tk.Label(canvas, text="Current unit: -", font=("Courier 16 bold"))
+label.place(x=sw*0.29, y=sh*0.1)
 
 #Create an Entry widget to accept User Input
 entry= tk.Entry(canvas, width= 40)
 entry.focus_set()
-entry.place(x=sw*0.1, y=sh*0.1)
+entry.place(x=sw*0.25, y=sh*0.5)
 
 #Create a Button to validate Entry Widget
-tk.Button(canvas, text= "Okay",width= 20, command= display_text).place(x=sw*0.1, y=sh*0.1)
+tk.Button(canvas, text= "Convert",width=20, command= display_text).place(x=(sw-20)*0.4, y=sh*0.6)
 # canvas.create_rectangle(50, 50, 350, 250, fill="blue")
 # canvas.create_text(200, 150, text="Centered Canvas", fill="white", font=("Arial", 16))
 
