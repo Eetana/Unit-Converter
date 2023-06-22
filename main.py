@@ -5,8 +5,8 @@ import screeninfo
 screen_info = screeninfo.get_monitors()[0]
 
 # Retrieve the screen dimensions
-sw = round(screen_info.width * 0.3)
-sh = round(screen_info.height * 0.5)
+sw = round(screen_info.width * 0.4)
+sh = round(screen_info.height * 0.6)
 
 
 # SI; meter, kg, liter, kelvin/celcius
@@ -76,9 +76,9 @@ dim_string = f'{sw}x{sh}'
 window.geometry(dim_string)
 
 # Create a canvas
-canvas = tk.Canvas(window, width=sw * 0.8, height=sh * 0.8)
+canvas = tk.Canvas(window, width=sw, height=sh)
 canvas.pack()
-canvas.place(x=sw//2, y=sh//2)
+canvas.place(x=0, y=0)
 
 def display_text():
    global entry
@@ -87,15 +87,15 @@ def display_text():
 
 #Initialize a Label to display the User Input in the desired output
 label= tk.Label(canvas, text="", font=("Courier 22 bold"))
-label.pack()
+label.place(x=sw*0.1, y=sh*0.1)
 
 #Create an Entry widget to accept User Input
 entry= tk.Entry(canvas, width= 40)
 entry.focus_set()
-entry.pack()
+entry.place(x=sw*0.1, y=sh*0.1)
 
 #Create a Button to validate Entry Widget
-tk.Button(canvas, text= "Okay",width= 20, command= display_text).pack(pady=20)
+tk.Button(canvas, text= "Okay",width= 20, command= display_text).place(x=sw*0.1, y=sh*0.1)
 # canvas.create_rectangle(50, 50, 350, 250, fill="blue")
 # canvas.create_text(200, 150, text="Centered Canvas", fill="white", font=("Arial", 16))
 
