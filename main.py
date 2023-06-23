@@ -80,39 +80,48 @@ canvas = tk.Canvas(window, width=sw, height=sh)
 canvas.pack()
 canvas.place(x=0, y=0)
 
-#Initialize a Label to display the User Input in the desired output
-label= tk.Label(canvas, text="Current unit: -", font=("Courier 16 bold"))
-label.place(x=sw*0.29, y=sh*0.1)
+#Initialize a Label to display the User Input in the desired unit
+value_label= tk.Label(canvas, text="Converted Value: -", font=("Courier 16 bold"))
+value_label.place(x=sw*0.205, y=sh*0.3)
+
+#Initialize a Label to display the User Input for the desired unit
+unit_label= tk.Label(canvas, text="Current unit: -", font=("Courier 16 bold"))
+unit_label.place(x=sw*0.29, y=sh*0.2)
+
+#Initialize a Label to indicate value input
+value= tk.Label(canvas, text="Value", font=("Courier 12 bold"))
+value.place(x=sw*0.2, y=sh*0.5)
+
+#Initialize a Label to indicate unit input
+unit= tk.Label(canvas, text="Unit", font=("Courier 12 bold"))
+unit.place(x=sw*0.2, y=sh*0.55)
 
 #Create an Entry widget to accept User Input
-entry= tk.Entry(canvas, width= 40)
-entry.focus_set()
-entry.place(x=sw*0.25, y=sh*0.5)
+value_entry= tk.Entry(canvas, width= 10)
+value_entry.focus_set()
+value_entry.place(x=sw*0.32, y=sh*0.5)
 
 def display_text():
-   global entry
-   string= entry.get()
-   label.configure(text=string)
+    global value_entry
+    string= value_entry.get()
+    value_label.configure(text=string)
    
 def change_text(selection):
-    global entry
+    global value_entry
     string = f'Current unit: {selection}'
-    label.configure(text=string)
+    unit_label.configure(text=string)
    
 def unit_selection(selection):
     change_text(selection)
     print(selection)
 
-
-
 #Create a Button to validate Entry Widget
-tk.Button(canvas, text= "Convert",width=20,command= display_text).place(x=(sw-20)*0.4, y=sh*0.6)
-# canvas.create_rectangle(50, 50, 350, 250, fill="blue")
-# canvas.create_text(200, 150, text="Centered Canvas", fill="white", font=("Arial", 16))
+tk.Button(canvas, text= "Convert to",width=20,command= display_text).place(x=(sw-20)*0.4, y=sh*0.6)
 
 options = tk.StringVar()
+options.set("What is the input unit?")
 menu = tk.OptionMenu(window, options, 'a', 'b', 'c', command=unit_selection)
-menu.place(x=sw*0.29, y=sh*0.6)
+menu.place(x=sw*0.2, y=sh*0.6)
 
 window.mainloop()
 
