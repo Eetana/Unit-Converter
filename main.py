@@ -14,6 +14,9 @@ sh = round(screen_info.height * 0.5)
 # Mass: ounce, pound, stone, ton
 # Capacity: gallon, pint, quart, fluid ounce
 # Temp: Kelvin, Celcius, Fahrenheit, Rankine, Reaumur, Newton, Delisle, Romer, Wedwood
+# Initialise variable to store the selected units
+initial_unit = ""
+desired_unit = ""
 
 # Convert Fahrenheit to Celcius
 def fah_to_cel(fah:float):
@@ -94,34 +97,64 @@ value.place(x=sw*0.2, y=sh*0.5)
 
 #Initialize a Label to indicate unit input
 unit= tk.Label(canvas, text="Unit", font=("Courier 12 bold"))
-unit.place(x=sw*0.2, y=sh*0.55)
+unit.place(x=sw*0.22, y=sh*0.56)
+
+#Initialize a Label to indicate where to select the new unit
+new_unit= tk.Label(canvas, text="New Unit", font=("Courier 12 bold"))
+new_unit.place(x=sw*0.138, y=sh*0.62)
 
 #Create an Entry widget to accept User Input
 value_entry= tk.Entry(canvas, width= 10)
 value_entry.focus_set()
 value_entry.place(x=sw*0.32, y=sh*0.5)
-
-def display_text():
-    global value_entry
-    string= value_entry.get()
-    value_label.configure(text=string)
    
+# Function to trigger when a unit is selected and display it
 def change_text(selection):
     global value_entry
     string = f'Current unit: {selection}'
     unit_label.configure(text=string)
-   
+
+# Function that triggers for above
 def unit_selection(selection):
-    change_text(selection)
-    print(selection)
+    global desired_unit
+    desired_unit = selection
+
+# Function to determine the original unit
+def init_unit(selection):
+    global initial_unit
+    initial_unit = selection
+
+# Create the pull down selection for the initial unit
+old_unit = tk.StringVar()
+old_unit.set("-")
+old_menu = tk.OptionMenu(window, old_unit, 'a', 'b', 'c', command=init_unit)
+old_menu.place(x=sw*0.32, y=sh*0.548)
+
+# Create the pull down selection for the initial unit
+wanted_unit = tk.StringVar()
+wanted_unit.set("-")
+new_menu = tk.OptionMenu(window, wanted_unit, 'a', 'b', 'c', command=unit_selection)
+new_menu.place(x=sw*0.32, y=sh*0.608)
+
+# Function to trigger when the "Convert" button is clicked so the number is converted as displayed
+def display_text():
+    
+    global value_entry
+    convereted_numver_string = str(value_entry.get())
+    string = 'Converted Value: ' + convereted_numver_string
+    value_label.configure(text=string)
+    
+    global initial_unit
+    global desired_unit
+    initial_unit = desired_unit 
+    
+    old_unit.set(desired_unit)
+    wanted_unit.set("-")
+    
+    change_text(desired_unit)
 
 #Create a Button to validate Entry Widget
-tk.Button(canvas, text= "Convert to",width=20,command= display_text).place(x=(sw-20)*0.4, y=sh*0.6)
-
-options = tk.StringVar()
-options.set("What is the input unit?")
-menu = tk.OptionMenu(window, options, 'a', 'b', 'c', command=unit_selection)
-menu.place(x=sw*0.2, y=sh*0.6)
+tk.Button(canvas, text= "Convert",width=20,command= display_text).place(x=(sw-20)*0.4, y=sh*0.68)
 
 window.mainloop()
 
