@@ -80,11 +80,6 @@ canvas = tk.Canvas(window, width=sw, height=sh)
 canvas.pack()
 canvas.place(x=0, y=0)
 
-def display_text():
-   global entry
-   string= entry.get()
-   label.configure(text=string)
-
 #Initialize a Label to display the User Input in the desired output
 label= tk.Label(canvas, text="Current unit: -", font=("Courier 16 bold"))
 label.place(x=sw*0.29, y=sh*0.1)
@@ -94,10 +89,30 @@ entry= tk.Entry(canvas, width= 40)
 entry.focus_set()
 entry.place(x=sw*0.25, y=sh*0.5)
 
+def display_text():
+   global entry
+   string= entry.get()
+   label.configure(text=string)
+   
+def change_text(selection):
+    global entry
+    string = f'Current unit: {selection}'
+    label.configure(text=string)
+   
+def unit_selection(selection):
+    change_text(selection)
+    print(selection)
+
+
+
 #Create a Button to validate Entry Widget
-tk.Button(canvas, text= "Convert",width=20, command= display_text).place(x=(sw-20)*0.4, y=sh*0.6)
+tk.Button(canvas, text= "Convert",width=20,command= display_text).place(x=(sw-20)*0.4, y=sh*0.6)
 # canvas.create_rectangle(50, 50, 350, 250, fill="blue")
 # canvas.create_text(200, 150, text="Centered Canvas", fill="white", font=("Arial", 16))
+
+options = tk.StringVar()
+menu = tk.OptionMenu(window, options, 'a', 'b', 'c', command=unit_selection)
+menu.place(x=sw*0.29, y=sh*0.6)
 
 window.mainloop()
 
