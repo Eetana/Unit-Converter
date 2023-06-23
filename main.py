@@ -11,7 +11,7 @@ sh = round(screen_info.height * 0.5)
 
 # SI; meter, kg, liter, kelvin/celcius
 # Length: foot, inch, yard, mile, nautical mile 
-# Mass: ounce, pound, stone, ton
+# Mass: ounce, pound, ton
 # Capacity: gallon, pint, quart, fluid ounce
 # Temp: Kelvin, Celcius, Fahrenheit, Rankine, Reaumur, Newton, Delisle, Romer, Wedwood
 # Initialise variable to store the selected units
@@ -114,26 +114,29 @@ def change_text(selection):
     string = f'Current unit: {selection}'
     unit_label.configure(text=string)
 
+# Function to determine the original unit
+def init_unit(selection):
+    global initial_unit
+    initial_unit = selection
+    
 # Function that triggers for above
 def unit_selection(selection):
     global desired_unit
     desired_unit = selection
 
-# Function to determine the original unit
-def init_unit(selection):
-    global initial_unit
-    initial_unit = selection
+# List of available units that can be selected
+available_units = ['K','C','F','R','L','gal','pt','qt','oz','km','m','mm','inch','ft''yd','mi','NM','kg','t','lb','LT']
 
 # Create the pull down selection for the initial unit
 old_unit = tk.StringVar()
 old_unit.set("-")
-old_menu = tk.OptionMenu(window, old_unit, 'a', 'b', 'c', command=init_unit)
+old_menu = tk.OptionMenu(window, old_unit, *available_units, command=init_unit)
 old_menu.place(x=sw*0.32, y=sh*0.548)
 
 # Create the pull down selection for the initial unit
 wanted_unit = tk.StringVar()
 wanted_unit.set("-")
-new_menu = tk.OptionMenu(window, wanted_unit, 'a', 'b', 'c', command=unit_selection)
+new_menu = tk.OptionMenu(window, wanted_unit, *available_units, command=unit_selection)
 new_menu.place(x=sw*0.32, y=sh*0.608)
 
 # Function to trigger when the "Convert" button is clicked so the number is converted as displayed
