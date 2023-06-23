@@ -117,12 +117,18 @@ def change_text(selection):
 # Function to determine the original unit
 def init_unit(selection):
     global initial_unit
+    global old_menu
+    global new_menu
     initial_unit = selection
     
 # Function that triggers for above
 def unit_selection(selection):
     global desired_unit
+    # global old_menu
+    # global new_menu
     desired_unit = selection
+    # if selection in ['K','C','F','R']:
+    #     new
 
 # List of available units that can be selected
 available_units = ['K','C','F','R','L','gal','pt','qt','oz','km','m','mm','inch','ft''yd','mi','NM','kg','t','lb','LT']
