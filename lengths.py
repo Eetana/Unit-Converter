@@ -48,3 +48,33 @@ def ft_to_inch(ft:float):
 def inch_to_ft(inch:float):
     ft = inch / 12
     return ft
+
+# mile to yard
+def mi_to_yd(mi:float):
+    yd = mi * 1760
+    return yd
+
+# yard to mile
+def yd_to_mi(yd:float):
+    mi = yd / 1760
+    return mi
+    
+# mile_to_km
+def mi_to_km(mi:float):
+    km = mi * 1.60934
+    return km
+
+# km_to_mile
+def km_to_mi(km:float):
+    mi = km / 1.60934
+    return mi
+
+# mile to nautical mile
+def mi_to_nm(mi:float):
+    nm = mi / 1.15078
+    return nm
+
+# nautcial mile to mile
+def nm_to_mi(nm:float):
+    mi = nm * 1.15078
+    return mi
