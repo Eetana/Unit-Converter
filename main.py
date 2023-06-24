@@ -56,7 +56,6 @@ value_entry.place(x=sw*0.32, y=sh*0.5)
    
 # Function to trigger when a unit is selected and display it
 def change_text(selection):
-    global value_entry
     string = f'Current unit: {selection}'
     unit_label.configure(text=string)
 
@@ -65,62 +64,73 @@ def init_unit(selection):
         
     global initial_unit
     global desired_unit
-    global old_menu
     global new_menu
     global button
     
     initial_unit = selection
     
-    if desired_unit == "": button.configure(state=tk.DISABLED)
-    
     # Reset list of options
     for choice in available_units:
-        new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice))
+        new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice, unit_selection))
         
     if selection in ['K','C','F','R']:
         new_menu['menu'].delete(0, 'end')
         for choice in ['K','C','F','R']:
             if selection == choice: continue
-            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice))
+            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice, unit_selection))
             
         if desired_unit not in ['K','C','F','R']:
             wanted_unit.set("-")
             desired_unit = ""
+            button.configure(state=tk.DISABLED)
         
     elif selection in ['L','gal','pt','qt','oz']:
         new_menu['menu'].delete(0, 'end')
         for choice in ['L','gal','pt','qt','oz']:
             if selection == choice: continue
-            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice))
+            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice, unit_selection))
             
         if desired_unit not in ['L','gal','pt','qt','oz']:
             wanted_unit.set("-")
             desired_unit = ""
+            button.configure(state=tk.DISABLED)
     
     elif selection in ['km','m','mm','inch','ft','yd','mi','NM']:
         new_menu['menu'].delete(0, 'end')
         for choice in ['km','m','mm','inch','ft','yd','mi','NM']:
             if selection == choice: continue
-            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice))    
+            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice, unit_selection))    
             
         if desired_unit not in ['km','m','mm','inch','ft','yd','mi','NM']:
             wanted_unit.set("-")
             desired_unit = ""
+            button.configure(state=tk.DISABLED)
             
-    if initial_unit != desired_unit: button.configure(state=tk.NORMAL)
+    elif selection in ['kg','t','lb','LT', 'st']:
+        new_menu['menu'].delete(0, 'end')
+        for choice in ['kg','t','lb','LT', 'st']:
+            if selection == choice: continue
+            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice, unit_selection))    
+            
+        if desired_unit not in ['kg','t','lb','LT', 'st']:
+            wanted_unit.set("-")
+            desired_unit = ""
+            button.configure(state=tk.DISABLED)
+        
+    if initial_unit != desired_unit and desired_unit != "": button.configure(state=tk.NORMAL)
+    
             
     
 # Function that triggers for above
 def unit_selection(selection):
     global initial_unit
     global desired_unit
-    global old_menu
-    global new_menu
     global button
-    
+
     desired_unit = selection
     
-    if initial_unit != desired_unit: button.configure(state=tk.NORMAL)
+    if initial_unit != desired_unit and desired_unit != "": button.configure(state=tk.NORMAL)
+    
 
 # Create the pull down selection for the initial unit
 old_unit = tk.StringVar()
@@ -145,16 +155,37 @@ def display_text():
     
     global initial_unit
     global desired_unit
-    # initial_unit = desired_unit 
-    # desired_unit = ""
+    initial_unit = desired_unit 
+    desired_unit = ""
     change_text(initial_unit)
-    print(initial_unit, desired_unit)
     
-    old_unit.set(desired_unit)
+    old_unit.set(initial_unit)
     wanted_unit.set("-")
 
-    for choice in available_units:
-        new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice))
+    if initial_unit in ['K','C','F','R']:
+        new_menu['menu'].delete(0, 'end')
+        for choice in ['K','C','F','R']:
+            if initial_unit == choice: continue
+            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice, unit_selection))
+            
+        
+    elif initial_unit in ['L','gal','pt','qt','oz']:
+        new_menu['menu'].delete(0, 'end')
+        for choice in ['L','gal','pt','qt','oz']:
+            if initial_unit == choice: continue
+            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice, unit_selection))
+    
+    elif initial_unit in ['km','m','mm','inch','ft','yd','mi','NM']:
+        new_menu['menu'].delete(0, 'end')
+        for choice in ['km','m','mm','inch','ft','yd','mi','NM']:
+            if initial_unit == choice: continue
+            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice, unit_selection))    
+            
+    elif initial_unit in ['kg','t','lb','LT', 'st']:
+        new_menu['menu'].delete(0, 'end')
+        for choice in ['kg','t','lb','LT', 'st']:
+            if initial_unit == choice: continue
+            new_menu['menu'].add_command(label=choice, command=tk._setit(wanted_unit, choice, unit_selection))    
         
     button.configure(state=tk.DISABLED)
 
