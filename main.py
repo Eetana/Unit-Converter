@@ -9,12 +9,6 @@ screen_info = screeninfo.get_monitors()[0]
 sw = round(screen_info.width * 0.3)
 sh = round(screen_info.height * 0.5)
 
-
-# SI; meter, kg, liter, kelvin/celcius
-# Length: foot, inch, yard, mile, nautical mile 
-# Mass: ounce, pound, ton
-# Capacity: gallon, pint, quart, fluid ounce
-# Temp: Kelvin, Celcius, Fahrenheit, Rankine, Reaumur, Newton, Delisle, Romer, Wedwood
 # Initialise variable to store the selected units
 initial_unit = ""
 desired_unit = ""
@@ -80,7 +74,7 @@ def unit_selection(selection):
     #     new
 
 # List of available units that can be selected
-available_units = ['K','C','F','R','L','gal','pt','qt','oz','km','m','mm','inch','ft''yd','mi','NM','kg','t','lb','LT']
+available_units = ['K','C','F','R','L','gal','pt','qt','oz','km','m','mm','inch','ft''yd','mi','NM','kg','t','lb','LT', 'st']
 
 # Create the pull down selection for the initial unit
 old_unit = tk.StringVar()
