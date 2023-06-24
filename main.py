@@ -1,6 +1,6 @@
 import tkinter as tk
 import screeninfo
-from temps import *
+from conversion import convert_unit
 
 # Get the primary screen information
 screen_info = screeninfo.get_monitors()[0]
@@ -149,8 +149,9 @@ def display_text():
     
     global value_entry
     
-    convereted_numver_string = str(value_entry.get())
-    string = 'Converted Value: ' + convereted_numver_string
+    convereted_number_string = convert_unit(initial_unit, desired_unit)
+    # convereted_number_string = str(value_entry.get())
+    string = 'Converted Value: ' + convereted_number_string
     value_label.configure(text=string)
     
     global initial_unit
